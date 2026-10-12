@@ -1,0 +1,4 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { InfoPage } from '@/components/info-page';
+import { pageHead } from '@/lib/page-head';
+export const Route=createFileRoute('/security')({head:()=>pageHead("Account Security","Private by default. Protected by design."),component:()=> <InfoPage {...{"title": "Account Security", "subtitle": "Private by default. Protected by design.", "sections": [{"heading": "Private account records", "copy": "Your profile and balances are visible only to you and authorized administrators."}, {"heading": "Secure access", "copy": "Email verification and password recovery help protect your account access."}, {"heading": "Blockchain services", "copy": "This application currently manages internal account records. It does not hold private keys, provide deposit addresses, or execute on-chain transactions. Do not send cryptocurrency to this application."}]}}/>});

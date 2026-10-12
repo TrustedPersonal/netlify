@@ -1,0 +1,4 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { InfoPage } from '@/components/info-page';
+import { pageHead } from '@/lib/page-head';
+export const Route=createFileRoute('/privacy')({head:()=>pageHead("Privacy Notice","How your account information is used."),component:()=> <InfoPage {...{"title": "Privacy Notice", "subtitle": "How your account information is used.", "sections": [{"heading": "Account information", "copy": "Registration stores your email address and full name. Your account also contains any balances assigned by an authorized administrator."}, {"heading": "Access to your records", "copy": "Your records are restricted to you and authorized administrators. Sign-in is provided by Lovable Cloud."}, {"heading": "Final privacy policy", "copy": "Operator identity, retention periods and a privacy contact must be provided before this application is opened to customers."}]}}/>});

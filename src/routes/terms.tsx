@@ -1,0 +1,4 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { InfoPage } from '@/components/info-page';
+import { pageHead } from '@/lib/page-head';
+export const Route=createFileRoute('/terms')({head:()=>pageHead("Terms of Use","Important information about your account."),component:()=> <InfoPage {...{"title": "Terms of Use", "subtitle": "Important information about your account.", "sections": [{"heading": "Account records only", "copy": "The balances in this application are internal records and do not establish ownership of cryptocurrency. No blockchain transfers, purchases, swaps or custody are provided."}, {"heading": "Your account", "copy": "Keep your sign-in details private. Do not enter seed phrases or private keys in this application."}, {"heading": "Service terms", "copy": "Final operator-specific legal terms are pending. This page is an initial informational notice, not a substitute for reviewed legal terms."}]}}/>});

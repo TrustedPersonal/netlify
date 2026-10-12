@@ -1,0 +1,2 @@
+import { Header, Footer } from './wallet-shell';
+export function InfoPage({title,subtitle,sections}:{title:string;subtitle:string;sections:{heading:string;copy:string}[]}) { return <><Header/><main className="content-page"><span className="eyebrow">TRUSTED WALLET VIP</span><h1>{title}</h1><p className="text-lg">{subtitle}</p>{sections.map(s=><section key={s.heading} className="mt-9 border-t border-border pt-7"><h2 className="text-xl mb-3">{s.heading}</h2><p>{s.copy}</p></section>)}</main><Footer/></>; }
