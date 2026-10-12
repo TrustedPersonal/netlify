@@ -1,0 +1,8 @@
+/wallet
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+
+/downloads/*
+  X-Content-Type-Options: nosniff
