@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from '@/integrations/supabase/client';
+import { isSupabaseConfigured } from '@/integrations/supabase/config';
 import { Button } from '@/components/ui/button';
 
 function NotFoundComponent() {
@@ -120,6 +121,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
   useEffect(() => {
+    if (!isSupabaseConfigured()) return;
     const { data } = supabase.auth.onAuthStateChange(event => {
       if (!['SIGNED_IN', 'SIGNED_OUT', 'USER_UPDATED'].includes(event)) return;
       router.invalidate();
