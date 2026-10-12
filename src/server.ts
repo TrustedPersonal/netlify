@@ -2,9 +2,10 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { walletSecurityHeaders } from "./lib/wallet/security.server";
 
 type ServerEntry = {
-  fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
+  fetch: (request: Request) => Promise<Response> | Response;
 };
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
@@ -48,8 +49,16 @@ export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
-      const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const walletPage = new URL(request.url).pathname.replace(/\/$/, '') === '/wallet';
+      const nonce = crypto.randomUUID();
+      const headers = new Headers(request.headers);
+      headers.delete('x-wallet-csp-nonce');
+      if (walletPage) headers.set('x-wallet-csp-nonce', nonce);
+      const response = await normalizeCatastrophicSsrResponse(await handler.fetch(new Request(request, { headers })));
+      if (!walletPage) return response;
+      const secured = new Response(response.body, response);
+      for (const [name, value] of Object.entries(walletSecurityHeaders(nonce, import.meta.env.DEV))) secured.headers.set(name, value);
+      return secured;
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

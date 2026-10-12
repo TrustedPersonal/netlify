@@ -121,6 +121,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
   useEffect(() => {
+    if (window.location.pathname.replace(/\/$/, '') === '/wallet') return;
     if (!isSupabaseConfigured()) return;
     const { data } = supabase.auth.onAuthStateChange(event => {
       if (!['SIGNED_IN', 'SIGNED_OUT', 'USER_UPDATED'].includes(event)) return;

@@ -26,6 +26,7 @@ declare global {
 
 export function reportLovableError(error: unknown, context: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
+  if (window.location.pathname.replace(/\/$/, '') === '/wallet') return;
   window.__lovableEvents?.captureException?.(
     error,
     {
